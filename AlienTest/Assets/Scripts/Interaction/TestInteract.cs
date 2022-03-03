@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestInteract : MonoBehaviour
+public class TestInteract : InteractableObject
 {
-    public void Interact()
+    public override void interact()
     {
-        gameObject.GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-        Debug.Log("The Cube has been interacted with.");
+        base.interact();
+        Debug.Log("Test Interact");
     }
 }

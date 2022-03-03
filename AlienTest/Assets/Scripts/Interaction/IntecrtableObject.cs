@@ -2,7 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IInteractable
+public abstract class InteractableObject : MonoBehaviour, IInteract
 {
-    void Interact();
+    public bool isEnabled = true;
+    public virtual void interact()
+    {
+
+    }
+    public virtual void interactfail()
+    {
+
+    }
 }

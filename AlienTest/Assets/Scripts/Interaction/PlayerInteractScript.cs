@@ -4,30 +4,47 @@ using UnityEngine;
 
 public class PlayerInteractScript : MonoBehaviour
 {
-    public float rayRange = 4;
+    [Header("Ray Settings")]
+    public float rayDistance;
+    //perhaps cahnge to a cone or line...?
+    public float rayShpereRadius;
+    public LayerMask interactableLayer;
+    public Transform m_cam;
+    private void Awake()
+    {
 
+    }
     void Update()
     {
-        CastRay();
+        if (Input.GetKey(KeyCode.E))
+        {
+            CastRay();
+        }
     }
 
     void CastRay()
     {
-        RaycastHit hitInfo = new RaycastHit();
-        bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo, rayRange);
-        if (hit)
+        //mghit need a chnge to player position?
+        Ray _ray = new Ray(m_cam.transform.position, m_cam.transform.forward);
+        RaycastHit _hitInfo;
+
+        bool _hitSomething = Physics.SphereCast(_ray, rayShpereRadius, out _hitInfo, rayDistance, interactableLayer);
+        Debug.DrawRay(_ray.origin, _ray.direction * rayDistance, _hitSomething ? Color.green : Color.red);
+        if (_hitSomething)
         {
-            GameObject hitObject = hitInfo.transform.gameObject;
-            if (Input.GetKey(KeyCode.E))
+            //did it hit the thing
+            InteractableObject _interactable = _hitInfo.transform.GetComponent<InteractableObject>();
+
+
+            if (_interactable != null)
             {
-                if (hitObject.GetComponent<IInteractable>() == null)
-                {
-                    Debug.Log("No IInteractable in object.");
-                }
-                else
-                {
-                    hitObject.GetComponent<IInteractable>().Interact();
-                }
+                _interactable.interact();
+
+
+            }
+            else
+            {
+                Debug.Log("No interactible in object");
             }
         }
     }

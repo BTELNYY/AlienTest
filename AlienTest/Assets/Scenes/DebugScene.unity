@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 111241780}
   - component: {fileID: 111241779}
   - component: {fileID: 111241778}
+  - component: {fileID: 111241781}
   m_Layer: 0
   m_Name: Camera Holder
   m_TagString: Untagged
@@ -215,6 +216,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 111241776}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &111241781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111241776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb0c7184a520b44ba38d865c1cf9732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  referenceTransform: {fileID: 511615261}
+  collisionOffset: 0.3
+  cameraSpeed: 15
 --- !u!1 &445808516
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,9 +275,9 @@ GameObject:
   - component: {fileID: 511615259}
   - component: {fileID: 511615258}
   - component: {fileID: 511615257}
-  - component: {fileID: 511615256}
   - component: {fileID: 511615254}
   - component: {fileID: 511615255}
+  - component: {fileID: 511615262}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -299,26 +315,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8519e9d14e223ae4dbb1270886411caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayRange: 5
---- !u!114 &511615256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 511615253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c7b9e9a846d57647915750435b2a44f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 7.5
-  jumpSpeed: 8
-  gravity: 20
-  playerCameraParent: {fileID: 2039972101}
-  lookSpeed: 2
-  lookXLimit: 60
-  canMove: 1
+  rayDistance: 10
+  rayShpereRadius: 3
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_cam: {fileID: 111241777}
 --- !u!54 &511615257
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -404,13 +406,32 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 511615253}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.569826, y: 4.51577, z: 3.2894294}
+  m_LocalPosition: {x: 5.569826, y: 4.99, z: 3.2894294}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 111241777}
   m_Father: {fileID: 445808517}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &511615262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511615253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7b9e9a846d57647915750435b2a44f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 7.5
+  jumpSpeed: 8
+  gravity: 20
+  playerCameraParent: {fileID: 111241777}
+  lookSpeed: 2
+  lookXLimit: 60
+  canMove: 1
 --- !u!1 &615778607
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,6 +464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8243c262ed328b748ad395cc64629b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnabled: 1
 --- !u!65 &615778609
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -714,7 +736,6 @@ GameObject:
   - component: {fileID: 2039972101}
   - component: {fileID: 2039972103}
   - component: {fileID: 2039972102}
-  - component: {fileID: 2039972105}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -729,8 +750,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2039972100}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 17.9, z: -47.1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 27.1, z: -66.7}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 111241777}
@@ -787,18 +808,3 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &2039972105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2039972100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb0c7184a520b44ba38d865c1cf9732, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  referenceTransform: {fileID: 511615261}
-  collisionOffset: 0.3
-  cameraSpeed: 15
