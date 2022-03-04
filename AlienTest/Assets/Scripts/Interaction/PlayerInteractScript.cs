@@ -38,7 +38,15 @@ public class PlayerInteractScript : MonoBehaviour
 
             if (_interactable != null)
             {
-                _interactable.interact();
+                if (_interactable.isEnabled)
+                {
+                    _interactable.interact();
+                }
+                else
+                {
+                    _interactable.interactfail();
+                }
+                
 
 
             }
