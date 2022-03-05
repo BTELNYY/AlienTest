@@ -4,8 +4,7 @@ using UnityEngine;
 
 public abstract class InteractableObject : MonoBehaviour, IInteract
 {
-    public bool isEnabled = true;
-
+    public bool IsEnabled = true;
     public virtual void interact()
     {
 

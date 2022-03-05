@@ -6,17 +6,17 @@ public class PlayerInteractScript : MonoBehaviour
 {
     [Header("Ray Settings")]
     public float rayDistance;
-    //perhaps cahnge to a cone or line...?
     public float rayShpereRadius;
     public LayerMask interactableLayer;
     public Transform m_cam;
-    private void Awake()
-    {
+    [Header("Key Settings")]
+    public KeyCode InteractKey = KeyCode.E; //KeyCode for interacting, for settings and stuff.
+    [Header("Player Actions")]
+    public bool DenyInteractions = false; //use this to prevent people from interacting, e.g. Cuffed, Or in a cutscene.
 
-    }
     void Update()
     {
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(InteractKey) && !DenyInteractions)
         {
             CastRay();
         }
@@ -38,7 +38,7 @@ public class PlayerInteractScript : MonoBehaviour
 
             if (_interactable != null)
             {
-                if (_interactable.isEnabled)
+                if (_interactable.IsEnabled)
                 {
                     _interactable.interact();
                 }
@@ -46,7 +46,7 @@ public class PlayerInteractScript : MonoBehaviour
                 {
                     _interactable.interactfail();
                 }
-                
+
 
 
             }
@@ -54,6 +54,30 @@ public class PlayerInteractScript : MonoBehaviour
             {
                 Debug.Log("No interactible in object");
             }
+        }
+    }
+    public enum InteractFailTypes
+    {
+        InteractionDisabled,
+        AccessDenied,
+        ExceptionRaised,
+        Locked,
+        Unknown,
+    }
+    public string InteractionFailedToString(InteractFailTypes e)
+    {
+        switch (e)
+        {
+            case InteractFailTypes.InteractionDisabled:
+                return "Interaction Disabled";
+            case InteractFailTypes.AccessDenied:
+                return "Access Denied";
+            case InteractFailTypes.ExceptionRaised:
+                return "Exception Raised";
+            case InteractFailTypes.Locked:
+                return "Object Locked";
+            default:
+                return "Unknown";
         }
     }
 }

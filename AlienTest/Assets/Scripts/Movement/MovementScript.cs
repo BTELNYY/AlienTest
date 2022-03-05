@@ -8,8 +8,10 @@ public class MovementScript : MonoBehaviour
     public float jumpSpeed = 8.0f;
     public float gravity = 20.0f;
     public Transform playerCameraParent;
+    public Transform playerCharacter;
     public float lookSpeed = 2.0f;
     public float lookXLimit = 60.0f;
+    public KeyCode MoveForwardKey = KeyCode.W;
 
     CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
@@ -55,7 +57,7 @@ public class MovementScript : MonoBehaviour
             rotation.y += Input.GetAxis("Mouse X") * lookSpeed;
             rotation.x += -Input.GetAxis("Mouse Y") * lookSpeed;
             rotation.x = Mathf.Clamp(rotation.x, -lookXLimit, lookXLimit);
-            playerCameraParent.localRotation = Quaternion.Euler(rotation.x, 0, 0);
+            playerCameraParent.localRotation = Quaternion.Euler(rotation.x, rotation.y, 0);
             transform.eulerAngles = new Vector2(0, rotation.y);
         }
     }
