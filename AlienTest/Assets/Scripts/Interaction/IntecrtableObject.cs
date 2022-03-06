@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class InteractableObject : MonoBehaviour, IInteract
 {
+    [Header("Ray Cast Settings")]
     public bool IsEnabled = true;
     public virtual void interact()
     {

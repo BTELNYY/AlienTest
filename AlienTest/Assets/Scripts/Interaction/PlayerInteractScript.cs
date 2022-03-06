@@ -13,11 +13,31 @@ public class PlayerInteractScript : MonoBehaviour
     public KeyCode InteractKey = KeyCode.E; //KeyCode for interacting, for settings and stuff.
     [Header("Player Actions")]
     public bool DenyInteractions = false; //use this to prevent people from interacting, e.g. Cuffed, Or in a cutscene.
+    [Header("Time Settings")]
+    public int MaxUsage = 1;
+    public int CooldownFrames = 10;
 
+    int CurrentUsage;
+    int CooldownCounter;
     void Update()
     {
+        //meant to prevent interaction spam, eg spamming a door to glitch NPC's or break the door script.
+        if (CurrentUsage == MaxUsage)
+        {
+            CooldownCounter++;
+            if(CooldownFrames == CooldownCounter)
+            {
+                CurrentUsage = 0;
+                CooldownCounter = 0;
+            }
+            else
+            {
+                return;
+            }
+        }
         if (Input.GetKey(InteractKey) && !DenyInteractions)
         {
+            CurrentUsage++;
             CastRay();
         }
     }
